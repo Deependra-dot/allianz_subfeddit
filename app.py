@@ -2,7 +2,6 @@ import requests
 from flask import Flask, jsonify, request
 import logging
 from datetime import datetime
-import json
 import random
 import time
 from operator import itemgetter
