@@ -18,10 +18,6 @@ logger = logging.getLogger(__name__)
 response_limit = 25
 
 def filter_comments_by_time(comments, start_time, end_time):
-    print(comments)
-    print("**")
-    print(start_time)
-    print(end_time)
     try:
         filtered_comments = [comment for comment in comments if end_time >= comment["created_at"] >= start_time]
         return filtered_comments
@@ -56,13 +52,12 @@ def find_sentiment_bulk(texts):
 
 def get_subfeddit_id_by_username(username):
     try:
-        base_url = "http://0.0.0.0:8080/api/v1/subfeddits/"
+        base_url = "http://localhost:8080/api/v1/subfeddits/"
         limit = 10
         skip = 0
         
         while True:
             url = f"{base_url}?skip={skip}&limit={limit}"
-            print(url)
             response = requests.get(url)
             response.raise_for_status()  # Raise exception for non-2xx status codes
             data = response.json()
@@ -89,7 +84,7 @@ def get_subfeddit_id_by_username(username):
 
 def get_total_comments(subfeddit_id, skip=0, limit=33730):
     try:
-        url = f"http://0.0.0.0:8080/api/v1/comments/?subfeddit_id={subfeddit_id}&skip={skip}&limit={limit}"
+        url = f"http://localhost:8080/api/v1/comments/?subfeddit_id={subfeddit_id}&skip={skip}&limit={limit}"
         response = requests.get(url)
         response.raise_for_status()  # Raise exception for non-2xx status codes
         data = response.json()
